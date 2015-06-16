@@ -1,0 +1,76 @@
+﻿<controls:MetroWindow x:Class="QuizzyExe.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Height="350" Width="600"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Converters="clr-namespace:MahApps.Metro.Converters"
+        Title="{Binding Path=WndTitle, UpdateSourceTrigger=PropertyChanged}"
+        DataContext="{StaticResource MainViewModel}"
+        xmlns:local="clr-namespace:QuizzyExe"
+        xmlns:common="clr-namespace:CommonResources;assembly=CommonResources"
+        xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1" WindowStartupLocation="CenterScreen" >
+
+    <controls:MetroWindow.Resources>     
+        
+    </controls:MetroWindow.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" Margin="10" FontSize="16" TextWrapping="WrapWithOverflow" 
+                   Text="{Binding Path=QuizDescription, UpdateSourceTrigger=PropertyChanged}"
+                   />
+
+        <Separator Grid.Row="1" Margin="10,0,10,10"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <TextBlock Text="{Binding Path=CurrentSelectedQuestion.Number}" Margin="10,0,0,0"  FontSize="14"></TextBlock>
+            <TextBlock Text=" " FontSize="14"></TextBlock>
+            <TextBlock Text="{Binding Path=CurrentSelectedQuestion.Body}" Margin="10,0,0,0"  FontSize="14"></TextBlock>
+        </StackPanel>
+
+        <ListView Grid.Row="3" ItemsSource="{Binding Path=CurrentSelectedQuestion.Answers}" ItemContainerStyle="{StaticResource AnswersStyle}"
+                 BorderThickness="0" Margin="0,10,0,0" >
+            
+            <ListView.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+            </ListView.Resources>
+        </ListView>
+
+
+
+        <StackPanel Grid.Row="4"  Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Width="120" Height="30" FontSize="18" Margin="0,0,10,10" Padding="5,0,5,5"
+                    HorizontalAlignment="Right" Style="{DynamicResource CustomSquareButtonStyle}" ToolTip="Previous question" 
+                    Content="Previous" Foreground="White" FontFamily="Segoe UI" FontWeight="Normal"
+                    Command="{Binding Path=PrevQuestionCommand}" Visibility="{Binding Path=FirstQuestionShown, Converter={x:Static common:FirstShownToResultsVisibleConverter.Instance}}"
+                    >
+            </Button>
+            <Button Width="120" Height="30" FontSize="18" Margin="0,0,10,10" Padding="5,0,5,5"
+                    HorizontalAlignment="Right" Style="{DynamicResource CustomSquareButtonStyle}" ToolTip="Next question" 
+                    Content="Next question" Foreground="White" FontFamily="Segoe UI" FontWeight="Normal"
+                    Command="{Binding Path=NextQuestionCommand}"  Visibility="{Binding Path=LastQuestionShown, Converter={x:Static common:FirstShownToResultsVisibleConverter.Instance}}"
+                    IsEnabled="{Binding Path=ResultsExist}"
+                    >
+            </Button>
+            <Button Width="120" Height="30" FontSize="18" Margin="0,0,10,10" Padding="5,0,5,5"
+                    HorizontalAlignment="Right" Style="{DynamicResource CustomSquareButtonStyle}" ToolTip="Previous question" 
+                    Content="See results" Foreground="White" FontFamily="Segoe UI" FontWeight="Normal"
+                    Command="{Binding Path=SeeResultsCommand}" Visibility="{Binding Path=LastQuestionShown, Converter={x:Static common:LastShownToResultsVisibleConverter.Instance}}"
+                    >
+            </Button>
+        </StackPanel>
+
+
+
+    </Grid>
+</controls:MetroWindow>

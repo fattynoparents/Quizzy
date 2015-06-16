@@ -1,0 +1,165 @@
+﻿<controls:MetroWindow x:Class="QuizzyExe.ResultsPanel"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Results" Height="600" Width="600"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro" 
+        xmlns:common="clr-namespace:CommonResources;assembly=CommonResources"
+        WindowStartupLocation="CenterScreen"
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1">
+
+    <controls:MetroWindow.Resources>
+        <DataTemplate x:Key="resultsRadioBtnTemplate">
+            <RadioButton Margin="20,0,10,10" Content="{Binding Path=Value}" 
+                         IsChecked="{Binding Path=MarkedCorrect}" FontWeight="{Binding ShowCorrect, Converter={x:Static common:BoolToFontWeightConverter.Instance}, UpdateSourceTrigger=PropertyChanged}" 
+                         FontSize="{Binding ShowCorrect, Converter={x:Static common:BoolToFontSizeConverter.Instance}, UpdateSourceTrigger=PropertyChanged}"                        
+                         />
+        </DataTemplate>
+
+        <DataTemplate x:Key="resultsCheckboxTemplate">
+            <CheckBox Margin="20,0,10,10" Content="{Binding Path=Value}" 
+                      IsChecked="{Binding Path=MarkedCorrect}" FontWeight="{Binding ShowCorrect, Converter={x:Static common:BoolToFontWeightConverter.Instance}, UpdateSourceTrigger=PropertyChanged}"
+                       FontSize="{Binding ShowCorrect, Converter={x:Static common:BoolToFontSizeConverter.Instance}, UpdateSourceTrigger=PropertyChanged}"/>
+        </DataTemplate>
+
+        
+        <Style TargetType="{x:Type ListViewItem}" x:Key="resultsAnswersStyle">
+            <Setter Property="ContentTemplate" Value="{StaticResource resultsRadioBtnTemplate}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=CurrentQuestionItemViewModel.AnswersAreCheckBoxes}" Value="true">
+                    <Setter Property="ContentTemplate" Value="{StaticResource resultsCheckboxTemplate}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </controls:MetroWindow.Resources>
+
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+        
+       
+        <TextBlock Grid.Row="0" Margin="10" FontSize="16" TextWrapping="WrapWithOverflow" Grid.ColumnSpan="2" 
+                   Text="{Binding Path=QuizResultsDescription, UpdateSourceTrigger=PropertyChanged}" />
+        
+        <!-- user results-->
+        <ListView Grid.Row="1" Name="allQuestionsLst"
+                  ItemsSource="{Binding Path=Results, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Margin="10" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontSize="14"
+                  ItemContainerStyle="{StaticResource QuestionsStyle}">
+            <ListView.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+            </ListView.Resources>
+            
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Number}" Padding="3" Margin="0,0,10,5"></TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Body}" TextWrapping="Wrap" Padding="3" Margin="0,0,0,5"></TextBlock>
+                        </StackPanel>
+
+                        <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Answers}" BorderThickness="0" 
+                                    ItemContainerStyle="{StaticResource resultsAnswersStyle}" IsEnabled="False">
+                                 
+                            <ListView.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey }" Color="Transparent" />
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                            </ListView.Resources>
+                           
+                        </ListView>
+
+
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Grid.Column="2">
+                            <TextBlock Text="{Binding Path=AnsweredCorrect, Converter={x:Static common:BoolToStringConverter.Instance}, UpdateSourceTrigger=PropertyChanged}"                                        
+                                       Margin="0,0,5,0" Foreground="{Binding Path=AnsweredCorrect, Converter={x:Static common:BoolToColorConverter.Instance}}"
+                                       Visibility="Visible" HorizontalAlignment="Right"></TextBlock>
+                        </StackPanel>
+        
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
+        <!-- correct results-->
+        <ListView Grid.Row="1" Visibility="{Binding Path=SourceChanged, Converter={x:Static common:BoolToVisibilityConverter.Instance}}"
+                  ItemsSource="{Binding Path=Results, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" Margin="10" 
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" FontSize="14"
+                  ItemContainerStyle="{StaticResource QuestionsStyle}">
+            <ListView.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+            </ListView.Resources>
+
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Path=Number}" Padding="3" Margin="0,0,10,5"></TextBlock>
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Path=Body}" TextWrapping="Wrap" Padding="3" Margin="0,0,0,5"></TextBlock>
+                        </StackPanel>
+
+                        <ListView Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding Path=Answers}" BorderThickness="0" 
+                                    ItemContainerStyle="{StaticResource AnswersStyle}" IsEnabled="False">
+
+                            <ListView.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent" />
+                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey }" Color="Transparent" />
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
+                            </ListView.Resources>
+
+                        </ListView>
+
+
+                        <StackPanel Orientation="Vertical" HorizontalAlignment="Right" Grid.Column="2">
+                            <TextBlock Text="{Binding Path=AnsweredCorrect, Converter={x:Static common:BoolToStringConverter.Instance}, UpdateSourceTrigger=PropertyChanged}"                                        
+                                       Margin="0,0,5,0" Foreground="{Binding Path=AnsweredCorrect, Converter={x:Static common:BoolToColorConverter.Instance}}"
+                                       Visibility="Visible" HorizontalAlignment="Right"></TextBlock>
+                        </StackPanel>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
+        <Button MinWidth="120" Height="30" FontSize="16" Margin="0,10,10,10" Padding="5,0,5,5"
+                    HorizontalAlignment="Right" Style="{DynamicResource CustomSquareButtonStyle}" 
+                    Content="Show correct answers" Foreground="White" FontFamily="Segoe UI" FontWeight="Normal"
+                    Command="{Binding Path=SeeCorrectAnswersCommand}" >
+        </Button>
+    </Grid>
+</controls:MetroWindow>

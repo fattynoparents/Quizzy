@@ -1,0 +1,4 @@
+C:\Users\akulova\Documents\var\QuizzyWPF\Quizzy_Feb\ObjectLib\bin\Debug\ObjectLib.dll
+C:\Users\akulova\Documents\var\QuizzyWPF\Quizzy_Feb\ObjectLib\bin\Debug\ObjectLib.pdb
+C:\Users\akulova\Documents\var\QuizzyWPF\Quizzy_Feb\ObjectLib\obj\Debug\ObjectLib.dll
+C:\Users\akulova\Documents\var\QuizzyWPF\Quizzy_Feb\ObjectLib\obj\Debug\ObjectLib.pdb

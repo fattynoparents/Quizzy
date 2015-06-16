@@ -1,0 +1,108 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mah="clr-namespace:MahApps.Metro;assembly=MahApps.Metro">
+
+    <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False" x:Key="one_step_back">
+        <Path Width="10" Height="18" Canvas.Left="23.406" Stretch="Fill" Fill="Black" 
+                          Data="F1 M 22.6563,23.75L 24.6563,25.75L 31.9063,32.75L 25.4063,32.75L 15.9063,23.75L 25.4063,14.75L 31.9063,14.75L 24.6563,21.75L 22.6563,23.75 Z " />
+
+    </Canvas>
+    <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False" x:Key="one_step_forward">
+        <Path Width="10" Height="18" Canvas.Left="23.406" Stretch="Fill" Fill="Black" Data="F1 M 25.1563,23.75L 23.1563,21.75L 15.9063,14.75L 22.4063,14.75L 31.9063,23.75L 22.4063,32.75L 15.9063,32.75L 23.1563,25.75L 25.1563,23.75 Z " />
+    </Canvas>
+
+    <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False" x:Key="go_to_first">
+        <Path Width="16" Height="18" Canvas.Left="21.9063" Canvas.Top="14.75" Stretch="Fill" Fill="Black" Data="F1 M 22.6563,23.75L 24.6563,25.75L 31.9063,32.75L 25.4063,32.75L 15.9063,23.75L 25.4063,14.75L 31.9063,14.75L 24.6563,21.75L 22.6563,23.75 Z " />
+        <Path Width="16" Height="18" Canvas.Left="8.9063" Canvas.Top="14.75" Stretch="Fill" Fill="Black" Data="F1 M 22.6563,23.75L 24.6563,25.75L 31.9063,32.75L 25.4063,32.75L 15.9063,23.75L 25.4063,14.75L 31.9063,14.75L 24.6563,21.75L 22.6563,23.75 Z " />
+    </Canvas>
+
+    <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False" x:Key="go_to_last">
+        <Path Width="16" Height="18" Canvas.Left="21.9063" Canvas.Top="14.75" Stretch="Fill" Fill="Black" Data="F1 M 25.1563,23.75L 23.1563,21.75L 15.9063,14.75L 22.4063,14.75L 31.9063,23.75L 22.4063,32.75L 15.9063,32.75L 23.1563,25.75L 25.1563,23.75 Z " />
+        <Path Width="16" Height="18" Canvas.Left="8.9063" Canvas.Top="14.75" Stretch="Fill" Fill="Black" Data="F1 M 25.1563,23.75L 23.1563,21.75L 15.9063,14.75L 22.4063,14.75L 31.9063,23.75L 22.4063,32.75L 15.9063,32.75L 23.1563,25.75L 25.1563,23.75 Z " />
+    </Canvas>
+
+
+    <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False" x:Key="finish_quiz">
+        <Path Width="19.95" Height="19.393" Canvas.Left="14.871" Canvas.Top="16.631" Stretch="Fill" Fill="Black" 
+              Data="F1 M 23.9063,25L 25.9063,22.5L 30.9063,15.75L 34.9063,22.25L 25.9062,31.75L 14.9063,22.25L 16.9063,17.75L 21.9063,23L 23.9063,25 Z " RenderTransformOrigin="0.5,0.5" >
+            <Path.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-26.587"/>
+                    <RotateTransform Angle="14.783"/>
+                    <TranslateTransform X="-0.713" Y="-4.19"/>
+                </TransformGroup>
+            </Path.RenderTransform>
+        </Path>
+    </Canvas>
+
+
+    <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False" x:Key="add_choice">
+        <Path Data="M25,8 L30,8 30,28 25,28" Fill="Black" Height="20" Canvas.Left="25" Stretch="Fill" Canvas.Top="18" Width="3"/>
+        <Path Data="M25,8 L30,8 30,28 25,28" Fill="Black" Height="20" Canvas.Left="25" Stretch="Fill" Canvas.Top="18" Width="3" RenderTransformOrigin="0.5,0.5">
+            <Path.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Path.RenderTransform>
+        </Path>
+    </Canvas>
+
+    <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False" x:Key="delete_choice">
+        <Path Data="M25,8 L30,8 30,28 25,28" Fill="Black" Height="20" Canvas.Left="25" Stretch="Fill" Canvas.Top="18" Width="3" RenderTransformOrigin="0.5,0.5">
+            <Path.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Path.RenderTransform>
+        </Path>
+    </Canvas>
+
+
+    <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False" x:Key="save_template">
+        <Path Width="22" Height="22" Canvas.Left="13" Canvas.Top="13" Stretch="Fill" Fill="Black" 
+              Data="F1 M 13,13L 35,13L 35,35L 29,35L 29,28L 19,28L 19,35L 13,35L 13,13 Z M 21,35L 21,32L 25,32L 25,35L 21,35 Z M 17,15L 17,21L 31,21L 31,15L 17,15 Z " />
+        <TextBlock Height="20.833" Canvas.Left="18" TextWrapping="Wrap" Text="QZZ" Canvas.Top="27.167" Width="32" FontWeight="ExtraBold" Foreground="Black" Panel.ZIndex="1" FontSize="16" FontStretch="SemiExpanded" TextAlignment="Center" Margin="0"/>
+    </Canvas>
+
+    <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False" x:Key="save_exe">
+        <Path Width="22" Height="22" Canvas.Left="13" Canvas.Top="13" Stretch="Fill" Fill="Black" 
+              Data="F1 M 13,13L 35,13L 35,35L 29,35L 29,28L 19,28L 19,35L 13,35L 13,13 Z M 21,35L 21,32L 25,32L 25,35L 21,35 Z M 17,15L 17,21L 31,21L 31,15L 17,15 Z " />
+        <TextBlock Height="20.833" Canvas.Left="18" TextWrapping="Wrap" Text="EXE" Canvas.Top="27.167" Width="30" FontWeight="ExtraBold" Foreground="Black" Panel.ZIndex="1" FontSize="16" FontStretch="SemiExpanded" TextAlignment="Center" Margin="0"/>
+    </Canvas>
+
+
+    <Canvas Width="48" Height="48" Clip="F1 M 0,0L 48,0L 48,48L 0,48L 0,0" UseLayoutRounding="False" x:Key="cancel" >
+        <Path Data="M25,8 L30,8 30,28 25,28" Fill="Black" Height="20" Canvas.Left="25" Stretch="Fill" Canvas.Top="18" Width="5" RenderTransformOrigin="0.5,0.5">
+            <Path.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-45"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Path.RenderTransform>
+        </Path>
+        <Path Data="M25,8 L30,8 30,28 25,28" Fill="Black" Height="20" Canvas.Left="25" Stretch="Fill" Canvas.Top="18" Width="5" RenderTransformOrigin="0.5,0.5">
+            <Path.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-135"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Path.RenderTransform>
+        </Path>
+    </Canvas>
+
+
+
+
+
+</ResourceDictionary>

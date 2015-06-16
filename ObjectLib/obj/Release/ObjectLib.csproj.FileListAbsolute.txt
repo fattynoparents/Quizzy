@@ -1,0 +1,5 @@
+C:\Users\akulova\Documents\var\QuizzyWPF\Quizzy_Feb\ObjectLib\bin\Release\ObjectLib.dll
+C:\Users\akulova\Documents\var\QuizzyWPF\Quizzy_Feb\ObjectLib\bin\Release\ObjectLib.pdb
+C:\Users\akulova\Documents\var\QuizzyWPF\Quizzy_Feb\ObjectLib\obj\Release\ObjectLib.dll
+C:\Users\akulova\Documents\var\QuizzyWPF\Quizzy_Feb\ObjectLib\obj\Release\ObjectLib.pdb
+C:\Users\akulova\Documents\var\QuizzyWPF\Quizzy_Feb\ObjectLib\obj\Release\ObjectLib.csprojResolveAssemblyReference.cache

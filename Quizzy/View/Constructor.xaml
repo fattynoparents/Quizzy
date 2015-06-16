@@ -1,0 +1,215 @@
+﻿<controls:MetroWindow x:Class="Quizzy.Constructor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        Title="Make a new quiz" Height="600" Width="800" WindowStartupLocation="CenterOwner"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:local="clr-namespace:Quizzy"
+        BorderBrush="{DynamicResource AccentColorBrush}" BorderThickness="1" 
+        xmlns:Converters="clr-namespace:MahApps.Metro.Converters" Closing="MetroWindow_Closing">
+        <!--DialogCloser.DialogResult="{Binding DialogResult}"-->
+    
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding CloseWindowCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <TextBlock Grid.Row="0" MinHeight="50" Margin="5,5,5,0" FontSize="22" Text="{Binding Path=QuestionLabel, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+
+
+        <TextBox controls:TextboxHelper.Watermark="{x:Static local:ConstValues.QuestionFieldDefaultString}" 
+                 Text="{Binding Mode=TwoWay, Path=CurrentQuestion.QuestionBody, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="1" MinHeight="100" Margin="5,0,5,5" Grid.ColumnSpan="2" FontSize="16" 
+                 TextWrapping="Wrap"
+                  >
+        </TextBox>
+
+        <TextBlock Grid.Row="3" MinHeight="50" Margin="5,5,5,0" FontSize="22">Choices:</TextBlock>
+
+        <DataGrid Grid.Row="4" Grid.ColumnSpan="2" Margin="5" ItemsSource="{Binding Path=CurrentQuestion.AnswersList}"
+                  SelectedItem="{Binding Path=CurrentQuestion.SelectedAnswer}" HorizontalContentAlignment="Stretch" CanUserAddRows="False" AutoGenerateColumns="False" BorderThickness="1" BorderBrush="#FFCCCCCC">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Header="No." Binding="{Binding Path=Number}" IsReadOnly="True"/>
+
+
+                <DataGridTemplateColumn Header="Choice Text" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBox controls:TextboxHelper.Watermark="{x:Static local:ConstValues.AnswerFieldDefaultString}" 
+                                    Text="{Binding Mode=TwoWay, 
+                                            Path=Value, 
+                                            UpdateSourceTrigger=PropertyChanged}"
+                                    MinHeight="40" FontSize="16" MinWidth="250"
+                                    TextWrapping="Wrap"
+                                    VerticalContentAlignment="Center"
+                                    HorizontalAlignment="Center">
+                            </TextBox>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridCheckBoxColumn ElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                        EditingElementStyle="{DynamicResource MetroDataGridCheckBox}"
+                                        Header="IsCorrect"
+                                        IsReadOnly="False"
+                                        Binding="{Binding Path=IsCorrect, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <DataGridTemplateColumn Width="*" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"  >
+                                <Button Width="40"
+                                    Height="40"
+                                    Style="{DynamicResource CustomMetroCircleButtonStyle}"
+                                    ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},Path=DataContext.CurrentQuestion.AddChoiceCommand.Description}"
+                                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},Path=DataContext.CurrentQuestion.AddChoiceCommand}"
+                                    >
+                                    <Rectangle Width="20"
+                                            Height="20"
+                                            Fill="{DynamicResource IdealForegroundColorBrush}"
+                                               >
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush Stretch="Fill" Visual="{DynamicResource add_choice}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </Button>
+
+                                <Button Width="40"
+                                    Height="40"
+                                    Style="{DynamicResource CustomMetroCircleButtonStyle}"
+                                    ToolTip="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},Path=DataContext.CurrentQuestion.RemoveChoiceCommand.Description}"
+                                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGrid}},Path=DataContext.CurrentQuestion.RemoveChoiceCommand}">
+                                    <Rectangle Width="20"
+                                            Height="20"
+                                            Fill="{DynamicResource IdealForegroundColorBrush}">
+                                        <Rectangle.OpacityMask>
+                                            <VisualBrush Stretch="Uniform" Visual="{DynamicResource delete_choice}" />
+                                        </Rectangle.OpacityMask>
+                                    </Rectangle>
+                                </Button>
+                            </StackPanel>
+                            
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type DataGridRow}}, Path=IsSelected}" Value="False">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                          
+                        </DataTemplate>
+
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+            </DataGrid.Columns>
+
+        </DataGrid>
+        
+        <!--<GroupBox Grid.Row="3" Grid.ColumnSpan="2" Margin="5" Header="Variants of reply:" FontSize="20" 
+                  ScrollViewer.CanContentScroll="True">
+            <ListBox Name="variantsListBox" BorderThickness="0" ItemsSource="{Binding Path=AnswersList}" ItemTemplate="{StaticResource AnswerListItemTemplate}"
+                     SelectedItem="{Binding Path=SelectedVariant}" HorizontalContentAlignment="Stretch" >
+            </ListBox>
+        </GroupBox>-->
+        
+        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="5">
+            <Button MinWidth="70" Height="35" FontSize="20" Margin="0,0,0,5" Style="{DynamicResource CustomSquareButtonStyle}" ToolTip="Go to first" 
+                     Command="{Binding Path=GoToFirstQuestionCommand}">
+                <Rectangle Width="20"
+                           Height="20"
+                           Fill="{DynamicResource IdealForegroundColorBrush}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{StaticResource go_to_first}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+             </Button>
+
+            <Button MinWidth="70" Height="35" FontSize="20" Margin="5,0,0,5" Style="{DynamicResource CustomSquareButtonStyle}" ToolTip="Go to previous"
+                    Command="{Binding Path=RecoverPrevQuestionCommand}">
+                <Rectangle Width="20"
+                           Height="20"
+                           Fill="{DynamicResource IdealForegroundColorBrush}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform"
+                                     Visual="{StaticResource one_step_back}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+
+            <Button MinWidth="70" Height="35" FontSize="20" Margin="5,0,0,5" Style="{DynamicResource CustomSquareButtonStyle}" ToolTip="Go to next"
+                    Command="{Binding Path=RecoverNextQuestionCommand}">
+                <Rectangle Width="20"
+                           Height="20"
+                           Fill="{DynamicResource IdealForegroundColorBrush}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform"
+                                     Visual="{StaticResource one_step_forward}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+              </Button>
+
+            <Button MinWidth="70" Height="35" FontSize="20" Margin="5,0,0,5" Style="{DynamicResource CustomSquareButtonStyle}" ToolTip="Go to last"
+                    Command="{Binding Path=GoToLastQuestionCommand}">
+                <Rectangle Width="20"
+                           Height="20"
+                           Fill="{DynamicResource IdealForegroundColorBrush}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                     Visual="{StaticResource go_to_last}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5"  Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button MinWidth="70" Height="35" FontSize="20" Margin="5,0,0,5" 
+                    HorizontalAlignment="Right" Style="{DynamicResource CustomSquareButtonStyle}" ToolTip="Save as a template"
+                    Command="{Binding Path=SaveTemplateCommand}">
+                <Rectangle Width="20"
+                               Height="20"
+                               Fill="{DynamicResource IdealForegroundColorBrush}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                         Visual="{StaticResource save_template}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+            <Button MinWidth="70" Height="35" FontSize="20" Margin="5,0,5,5" 
+                    HorizontalAlignment="Right" Style="{DynamicResource CustomSquareButtonStyle}" ToolTip="Done"
+                    Command="{Binding Path=FinishQuizCommand}">
+                <Rectangle Width="20"
+                               Height="20"
+                               Fill="{DynamicResource IdealForegroundColorBrush}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Fill"
+                                         Visual="{StaticResource  finish_quiz}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </StackPanel>
+
+
+
+    </Grid>
+</controls:MetroWindow>
